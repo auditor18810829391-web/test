@@ -7,6 +7,7 @@ function createWindow() {
     height: 720,
     frame: false,          // 无边框
     transparent: true,     // 透明窗口
+    resizable: true,       // 可以缩放，需要配合html代码使用 
     alwaysOnTop: true,     // 可选：总在最前
     webPreferences: {
       nodeIntegration: true,

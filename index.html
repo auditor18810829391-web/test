@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>摄像头预览</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    #video {
+      width: 640px;
+      height: 480px;
+      border: 2px solid #333;
+      border-radius: 8px;
+      background-color: #000;
+    }
+    #error {
+      color: red;
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>摄像头实时预览</h1>
+  <video id="video" autoplay playsinline></video>
+  <div id="error"></div>
+  <button id="stopBtn">停止摄像头</button>
+
+  <script>
+    const video = document.getElementById('video');
+    const errorDiv = document.getElementById('error');
+    const stopBtn = document.getElementById('stopBtn');
+    let stream = null;
+
+    // 请求摄像头权限并播放视频
+    async function startCamera() {
+      try {
+        // 获取视频流（只请求视频，不请求音频）
+        stream = await navigator.mediaDevices.getUserMedia({ 
+          video: true, 
+          audio: false 
+        });
+
+        // 将视频流绑定到 <video> 元素
+        video.srcObject = stream;
+        errorDiv.textContent = '';
+      } catch (err) {
+        console.error('无法访问摄像头:', err);
+        errorDiv.textContent = '错误：' + (err.message || '无法打开摄像头，请检查权限或设备。');
+      }
+    }
+
+    // 停止摄像头
+    function stopCamera() {
+      if (stream) {
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        video.srcObject = null;
+        stream = null;
+      }
+    }
+
+    // 绑定按钮事件
+    stopBtn.addEventListener('click', stopCamera);
+
+    // 页面加载时自动启动摄像头
+    startCamera();
+  </script>
+</body>
+</html>

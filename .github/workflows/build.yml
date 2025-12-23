@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [win, mac, linux]
+        platform: [win, mac]
 
     steps:
     - name: Checkout repository

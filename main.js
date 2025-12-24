@@ -11,10 +11,10 @@ function createWindow() {
     alwaysOnTop: true,     // 可选：总在最前
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      webSecurity: false
     }
   });
-
   win.loadFile('index.html'); // 你的 HTML 文件
 }
 

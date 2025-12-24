@@ -15,7 +15,7 @@ function createWindow() {
     }
   });
 
-  win.loadFile('index.html'); // 你的 HTML 文件
+  win.loadFile('http://127.0.0.1:5500/index.html'); // 你的 HTML 文件
 }
 
 app.whenReady().then(createWindow);
